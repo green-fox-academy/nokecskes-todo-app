@@ -12,32 +12,16 @@ public class App {
   public static void main(String[] args) {
 
     ArgumentHandler handler = new ArgumentHandler(args);
-    ToDoList myToDoList = new ToDoList();
 
     if (handler.noArgument()) {
       handler.printUsage();
-    }else if (handler.notValidArg()) {
+    } else if (!handler.validArg() || !handler.validLength()) {
       System.out.println("Unsupported argument");
       handler.printUsage();
+    } else {
+      ToDoList myToDoList = new ToDoList(args);
+      myToDoList.handleList();
     }
-
-
-
-
-
-    if (handler.contains("a")) {
-      myToDoList.append(args);
-    }
-
-    if (handler.contains("l")) {
-      myToDoList.listTasks();
-    }
-
-    if (handler.contains("r")) {
-      myToDoList.removeTask(args);
-    }
-
-
   }
 }
 

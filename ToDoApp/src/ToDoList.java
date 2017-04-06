@@ -10,62 +10,61 @@ import java.util.List;
  */
 public class ToDoList {
 
+  String[] arguments;
+  Path myListPath;
+  List<String> lines;
 
 
-  public void listTasks() {
+  public ToDoList(String[] arguments) {
+    this.arguments = arguments;
     try {
-      Path myListPath = Paths.get("mylist.txt");
-      List<String> lines = Files.readAllLines(myListPath);
-      if (lines.size() == 0) {
-        System.out.println("No todos for today! :)");
-      } else {
-        for (int i = 0; i < lines.size(); i++) {
-          System.out.println((i + 1) + " - " + lines.get(i));
-        }
-      }
+      myListPath = Paths.get("mylist.txt");
+      lines = Files.readAllLines(myListPath);
     } catch (Exception e) {
       System.out.println("error");
     }
   }
 
-  public void append(String[] arguments) {
-    try {
-      Path myListPath = Paths.get("mylist.txt");
-      List<String> lines = Files.readAllLines(myListPath);
-      if (arguments[arguments.length - 1].equals("-a")) {
-        System.out.println("Unable to add: no task provided");
-      } else {
-        for (int i = 0; i < (arguments.length - 1); i++) {
-          if (arguments[i].equals("-a")) {
-            lines.add(arguments[i + 1]);
-          }
-        }
+  public void handleList() {
+    if (arguments[0].equals("-l")) {
+      printTasks();
+    } else if (arguments[0].equals("-a")) {
+      append();
+    } else if (arguments[0].equals("-r")) {
+      removeTask();
+    } /*else if(arguments[0].equals("-c")) {
+      printTasks();
+    }*/
+  }
+
+  public void printTasks() {
+    if (lines.size() == 0) {
+      System.out.println("No todos for today! :)");
+    } else {
+      for (int i = 0; i < lines.size(); i++) {
+        System.out.println((i + 1) + " - " + lines.get(i));
       }
+    }
+  }
+
+  public void append() {
+    if (arguments.length == 1) {
+      System.out.println("Unable to add: no task provided");
+    } else {
+      lines.add(arguments[1]);
+    }
+    try{
       Files.write(myListPath, lines);
     } catch (Exception e) {
       System.out.println("error");
     }
   }
 
-  public void removeTask(String[] arguments) {
-    try {
-      Path myListPath = Paths.get("mylist.txt");
-      List<String> lines = Files.readAllLines(myListPath);
-      /*if (arguments[arguments.length - 1].equals("-r")) {
-        System.out.println("Unable to add: no task provided");
-      } else {*/
-        for (int i = 0; i < (arguments.length - 1); i++) {
-          if (arguments[i].equals("-r")) {
-            int toRemove = Integer.parseInt(arguments[i + 1]) - 1;
-            lines.remove(toRemove);
-          }
-        }
-      /*}*/
-
-
+  public void removeTask() {
+    int toRemove = Integer.parseInt(arguments[1]) - 1;
+    lines.remove(toRemove);
+    try{
       Files.write(myListPath, lines);
-
-
     } catch (Exception e) {
       System.out.println("error");
     }
