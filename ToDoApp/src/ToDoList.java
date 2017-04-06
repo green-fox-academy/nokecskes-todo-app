@@ -41,14 +41,33 @@ public class ToDoList {
     try {
       Path myListPath = Paths.get("mylist.txt");
       List<String> lines = Files.readAllLines(myListPath);
-      for (int i = 0; i < (arguments.length - 1); i++) {
-        if (arguments[i].equals("-a")) {
-          lines.add(arguments[i + 1]);
+      if (arguments[arguments.length - 1].equals("-a")) {
+        System.out.println("Unable to add: no task provided");
+      } else {
+        for (int i = 0; i < (arguments.length - 1); i++) {
+          if (arguments[i].equals("-a")) {
+            lines.add(arguments[i + 1]);
+          }
         }
       }
       Files.write(myListPath, lines);
     } catch (Exception e) {
-      System.out.println("No new task to add.");
+      System.out.println("error");
+    }
+  }
+
+  public void removeTask(String[] arguments) {
+    try {
+     /* Path myListPath = Paths.get("mylist.txt");
+      List<String> lines = Files.readAllLines(myListPath);
+      */
+      System.out.println("remove!");
+
+
+    } catch (Exception e) {
+      System.out.println("error");
+
+
     }
   }
 }

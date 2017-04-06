@@ -18,13 +18,19 @@ public class App {
       myToDoList.printUsage();
     }
 
+    if (handler.contains("a")) {
+      myToDoList.append(args);
+    }
+
     if (handler.contains("l")) {
       myToDoList.listTasks();
     }
 
-    if (handler.contains("a")) {
-      myToDoList.append(args);
+    if (handler.contains("r")) {
+      myToDoList.removeTask(args);
     }
+
+
   }
 }
 
