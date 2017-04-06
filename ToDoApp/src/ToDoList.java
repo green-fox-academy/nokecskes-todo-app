@@ -25,6 +25,14 @@ public class ToDoList {
     }
   }
 
+  public void writeFile() {
+    try {
+      Files.write(myListPath, lines);
+    } catch (Exception e) {
+      System.out.println("error");
+    }
+  }
+
   public void handleList() {
     if (arguments[0].equals("-l")) {
       printTasks();
@@ -53,20 +61,30 @@ public class ToDoList {
     } else {
       lines.add(arguments[1]);
     }
-    try{
-      Files.write(myListPath, lines);
-    } catch (Exception e) {
-      System.out.println("error");
-    }
+    writeFile();
   }
 
   public void removeTask() {
-    int toRemove = Integer.parseInt(arguments[1]) - 1;
-    lines.remove(toRemove);
-    try{
-      Files.write(myListPath, lines);
-    } catch (Exception e) {
-      System.out.println("error");
+    int toRemove = 0;
+
+    if (arguments.length == 1) {
+      System.out.println("Unable to remove: no index provided");
+      return;
     }
+
+    try {
+      toRemove = Integer.parseInt(arguments[1]);
+    } catch (NumberFormatException e) {
+      System.out.println("Unable to remove: index is not a number");
+      return;
+    }
+
+    if (toRemove > lines.size()) {
+      System.out.println("Unable to remove: index is out of bound");
+    } else {
+      lines.remove(toRemove - 1);
+    }
+    writeFile();
   }
 }
+
