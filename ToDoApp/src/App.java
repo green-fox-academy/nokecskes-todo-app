@@ -15,8 +15,15 @@ public class App {
     ToDoList myToDoList = new ToDoList();
 
     if (handler.noArgument()) {
-      myToDoList.printUsage();
+      handler.printUsage();
+    }else if (handler.notValidArg()) {
+      System.out.println("Unsupported argument");
+      handler.printUsage();
     }
+
+
+
+
 
     if (handler.contains("a")) {
       myToDoList.append(args);
