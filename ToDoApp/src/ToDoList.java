@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by Connor on 2017.04.06..
  */
+
 public class ToDoList {
 
   String[] arguments;
@@ -86,7 +87,7 @@ public class ToDoList {
   }
 
   public int checkIndex (String task) {
-    int toRemove = 0;
+    int toHandle= 0;
 
     if (arguments.length == 1) {
       System.out.println("Unable to " + task + ": no index provided");
@@ -94,18 +95,18 @@ public class ToDoList {
     }
 
     try {
-      toRemove = Integer.parseInt(arguments[1]) - 1;
+      toHandle = Integer.parseInt(arguments[1]) - 1;
     } catch (NumberFormatException e) {
       System.out.println("Unable to " + task + ": index is not a number");
       return -1;
     }
 
-    if (toRemove > lines.size()) {
+    if (toHandle > lines.size()) {
       System.out.println("Unable to " + task + ": index is out of bound");
       return -1;
     }
 
-    return toRemove;
+    return toHandle;
   }
 
 
