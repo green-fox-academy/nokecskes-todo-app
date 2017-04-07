@@ -17,7 +17,6 @@ public class ToDoList {
   Path myListPath;
   List<String> lines;
 
-
   public ToDoList(String[] arguments) {
     this.arguments = arguments;
     try {
@@ -69,38 +68,46 @@ public class ToDoList {
   }
 
   public void removeTask() {
-    int toRemove = 0;
-
-    if (arguments.length == 1) {
-      System.out.println("Unable to remove: no index provided");
-      return;
+    int toRemove = checkIndex("remove");
+    if( toRemove >= 0) {
+      lines.remove(toRemove);
+      writeFile();
     }
-
-    try {
-      toRemove = Integer.parseInt(arguments[1]);
-    } catch (NumberFormatException e) {
-      System.out.println("Unable to remove: index is not a number");
-      return;
-    }
-
-    if (toRemove > lines.size()) {
-      System.out.println("Unable to remove: index is out of bound");
-    }
-
-    else {
-      lines.remove(toRemove - 1);
-    }
-    writeFile();
-
-
   }
 
   public void checkTask() {
-    int index = Integer.parseInt(arguments[1]) - 1;
-    String taskToCheck = lines.get(index).substring(3);
-    lines.remove(index);
-    lines.add(index, "[X]" + taskToCheck);
-    writeFile();
+    int toCheck = checkIndex("check");
+    if (toCheck >= 0) {
+      String taskToCheck = lines.get(toCheck).substring(3);
+      lines.remove(toCheck);
+      lines.add(toCheck, "[X]" + taskToCheck);
+      writeFile();
+    }
   }
+
+  public int checkIndex (String task) {
+    int toRemove = 0;
+
+    if (arguments.length == 1) {
+      System.out.println("Unable to " + task + ": no index provided");
+      return -1;
+    }
+
+    try {
+      toRemove = Integer.parseInt(arguments[1]) - 1;
+    } catch (NumberFormatException e) {
+      System.out.println("Unable to " + task + ": index is not a number");
+      return -1;
+    }
+
+    if (toRemove > lines.size()) {
+      System.out.println("Unable to " + task + ": index is out of bound");
+      return -1;
+    }
+
+    return toRemove;
+  }
+
+
 }
 

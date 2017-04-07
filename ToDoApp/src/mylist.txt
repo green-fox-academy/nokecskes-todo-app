@@ -3,5 +3,4 @@
 [ ] Do homework
 [X] Feed the hippo
 [ ] Count sheep
-[ ] finish exercise
-[ ] Talk more to my hippo, Fiona
+[X] Talk more to my hippo, Fiona
