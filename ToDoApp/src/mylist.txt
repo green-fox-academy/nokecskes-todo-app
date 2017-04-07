@@ -1,5 +1,7 @@
-Walk the dog
-Buy milk
-Do homework
-Feed the hippo
-Count sheep
+[ ] Walk the dog
+[ ] Buy milk
+[ ] Do homework
+[X] Feed the hippo
+[ ] Count sheep
+[ ] finish exercise
+[ ] Talk more to my hippo, Fiona

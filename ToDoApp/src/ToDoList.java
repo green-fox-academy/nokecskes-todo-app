@@ -1,3 +1,6 @@
+import com.sun.org.apache.xpath.internal.Arg;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -40,9 +43,9 @@ public class ToDoList {
       append();
     } else if (arguments[0].equals("-r")) {
       removeTask();
-    } /*else if(arguments[0].equals("-c")) {
-      printTasks();
-    }*/
+    } else if(arguments[0].equals("-c")) {
+      checkTask();
+    }
   }
 
   public void printTasks() {
@@ -59,6 +62,7 @@ public class ToDoList {
     if (arguments.length == 1) {
       System.out.println("Unable to add: no task provided");
     } else {
+      arguments[1] = "[ ] " + arguments[1];
       lines.add(arguments[1]);
     }
     writeFile();
@@ -81,9 +85,21 @@ public class ToDoList {
 
     if (toRemove > lines.size()) {
       System.out.println("Unable to remove: index is out of bound");
-    } else {
+    }
+
+    else {
       lines.remove(toRemove - 1);
     }
+    writeFile();
+
+
+  }
+
+  public void checkTask() {
+    int index = Integer.parseInt(arguments[1]) - 1;
+    String taskToCheck = lines.get(index).substring(3);
+    lines.remove(index);
+    lines.add(index, "[X]" + taskToCheck);
     writeFile();
   }
 }
